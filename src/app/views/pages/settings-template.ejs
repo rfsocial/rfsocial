@@ -1,0 +1,52 @@
+<div class="settings">
+    <div class="settings-header">
+        <img id="profilePic" onclick="fileUpload()" src="<%= profile_picture %>" alt="profilkép">
+        <h1>Beállítások</h1>
+    </div>
+    <div class="username-div">
+        <label for="username" class="username-label">Név</label>
+        <div>
+            <input id="username" type="text" maxlength=100 value="<%= username %>">
+            <p class="errormessage" id="nametaken">A felhasználónév már foglalt!</p>
+        </div>
+        <input type="file" id="profilePicInput" accept="image/*">
+    </div>
+    <div class="description">
+        <p class="description-label">Bemutatkozás</p>
+        <textarea id="introduction" maxlength="255"><%= introduction %></textarea>
+    </div>
+
+    <div class="birthdate">
+        <label class="birthdate-input">Születési dátum<input id="dateofbirth" type="date" value="<%= dob %>"></label>
+    </div>
+
+    <div class="password">
+        <p>Jelszó megváltoztatása</p>
+        <div class="passworderror">
+            <input id="currentpass" type="password" placeholder="jelenlegi jelszó">
+            <p id="wrongcurrentpass">Helytelen jelenlegi jelszó!</p>
+        </div>
+        <input id="newpass" type="password" placeholder="új jelszó">
+         <div class="passworderror">
+            <input id="newpassconfirm" type="password" placeholder="új jelszó újra">
+            <p id="passnotmatch">A jelszavak nem egyeznek!</p>
+         </div>
+    </div>
+
+    <div class="profile-visibility">
+        <p>Profil legyen látható más emberek számára</p>
+        <label class="switch">
+            <input id="profilevisibility" type="checkbox" <%= isPublic ? 'checked' : '' %>>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="download-data">
+        <p>Szerveren tárolt adatok</p>
+        <button>Letöltés - <%# valami metódus ami lekéri az adatok méretét%> MB (.zip)</button>
+    </div>
+    <div class="bottombuttons">
+        <button class="deleteprofile">Fiók törlése</button>
+        <button class="save" onclick="updateProfile()">Módosítások mentése</button>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<%# ==================================
+    Template: Chat
+    Cél: Az üzenetek megjelenítése, amelyeket a felhasználók küldtek egymásnak. Az üzeneteket csoportokba szervezi,
+         és a legutolsó üzeneteket jeleníti meg a csoportokban. Az üzeneteket kattintásra lehet megtekinteni, és új
+         üzeneteket lehet küldeni. Az üzeneteket a felhasználók közötti kommunikációra használják.
+    Szerző: Banicz Zoltán
+    Dátum: 2024/11/12
+    ================================== %>
+
+<div id="modal" class="message-modal">
+        <div class="message-container">
+            <span class="message-text">Üzenet küldése</span>
+            <div class="message-content">
+                <textarea class="message-description" id="description" placeholder="Üzenet.."></textarea>
+                <button class="message-btn" onclick="sendMessage()">Üzenet elküldése</button>
+                <button id="close-modal" class="message-btn" onclick="closeMessageModal()">Vissza</button>
+            </div>
+        </div>
+    </div>
+
+<div class="chat-main">
+    <div class="chat-header">
+        <button class="back-button" id="backButton"><i class="fa-solid fa-arrow-left"></i></button> <!-- Vissza gomb -->
+        <!--fa-solid fa-arrow-left: balra mutató nyíl ikon-->
+        <h1>Üzenetek</h1>
+        <button class="message-button"></button> <!-- Új üzenet gomb -->
+    </div>
+    <div class="chat-content">
+        <!-- Az üzenetek itt lesznek megjelenítve -->
+    </div>
+
+    <!-- Az üzenetek megjelenítése amikor egy chat-re kattintunk -->
+    <div class="chat-input-container hidden" id="chatInputContainer">
+        <input type="text" placeholder="Írj üzenetet..." class="chat-input-box" id="chatInputBox">
+        <button class="send-button"><i class="fa-solid fa-paper-plane"></i></button>
+        <!--fa-solid fa-paper-plane: papírrepülő ikon-->
+    </div>
+</div>

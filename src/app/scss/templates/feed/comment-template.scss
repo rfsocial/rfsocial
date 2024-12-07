@@ -1,0 +1,172 @@
+// Változók
+$accent-color: #006972;
+$hover-color: #9DF0FA;
+$border-radius: 10px;
+$box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+$mobile-max-width: 768px;
+
+// "roundpfp" mixin: Profilkép kerekké alakítása
+@mixin roundpfp(){
+  border-radius: 50%;
+}
+
+*{
+  font-family: Lexend, serif;
+}
+
+.comment{
+  background-color: $accent-color;
+  color: white;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-radius: $border-radius;
+  padding: 10px;
+  text-wrap: wrap;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+
+      img {
+        width: 40px;
+        height: 40px;
+        @include roundpfp();
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+      .username-date {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+
+        p {
+          margin: 0;
+          padding: 0;
+          font-size: 14px;
+        }
+
+        .comment-username {
+          &:hover {
+            color: $hover-color;
+            cursor: pointer;
+          }
+
+          .date {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .header-right {
+        display: flex;
+
+        button {
+          background: none;
+          border: none;
+        }
+
+        i {
+          color: white;
+          font-size: large;
+
+          &:hover {
+            color: $hover-color;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .body {
+      display: flex;
+
+      p {
+        font-size: 14px;
+        max-width: 100%;
+      }
+    }
+  }
+
+
+.editbutton{
+  background-color: #3A939D;
+  border: none;
+  color: white;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+
+  &:hover{
+    cursor: pointer;
+    background-color: $hover-color;
+  }
+}
+
+// új hozzászólás text-box (bmartin)
+
+.comments-section {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease, opacity 0.2s ease-out;
+  opacity: 0;
+}
+
+.visible {
+  max-height: 100%;
+  opacity: 1;
+  display: block;
+}
+
+.new-comment-container {
+  display: block;
+  margin-bottom: 1rem;
+  max-width: 100%;
+  padding: 0.1rem;
+}
+
+.new-comment-input {
+  position: relative;
+  width: 100%;
+}
+
+.new-comment-textbox {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 2px solid $accent-color;
+  overflow: hidden;
+  resize: none;
+}
+
+.new-comment-input i {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.6rem;
+  margin-right: 2rem;
+  color: $accent-color;
+}
+
+.new-comment-input i:hover {
+  cursor: pointer;
+  color: black;
+}

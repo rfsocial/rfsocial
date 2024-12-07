@@ -1,0 +1,87 @@
+<%# ==================================
+    Template: Bejegyzés
+    Cél: A bejegyzések megjelenítése, beleértve a bejegyzést közzétevő felhasználót, a közzététel idejét,
+         a hozzácsatolt képet illetve a bejegyzés szövegét, valamint a reakciókat és hozzászólásokat.
+    Szerző: Csörgő Márk Ábrahám
+    Dátum: 2024/11/06
+    ================================== %>
+<div class="posts-container">
+    <div id="modal" class="report-modal">
+        <div class="report-container">
+            <span class="report-text">Tartalom jelentése</span>
+            <div class="report-content">
+                <textarea class="report-description" id="description" placeholder="Üzenet.."></textarea>
+                <button class="report-btn" onclick="sendReport()">Jelentés elküldése</button>
+                <button id="close-modal" class="report-btn" onclick="closeReportModal()">Vissza</button>
+            </div>
+        </div>
+    </div>
+
+    <% if(isBackNeeded) { %>
+        <span id="return-last-page" onClick="returnToLastNavigation()">Vissza</span>
+    <% } %>
+
+    <% posts.forEach(post => { %>
+        <!-- Bejegyzés fő konténere -->
+        <div class="post-container" data-post-id="<%= post.id %>">
+            <!-- Felhasználói adatok konténere (profilkép, felhasználónév, közzététel ideje) -->
+            <div class="post-header">
+                <div class="post-title">
+                    <img onclick="loadContent('api/profile/<%= post.user_id %>')" src="<%= post.user.profile_picture || '../images/pfp-placeholder.png' %>" class="pfp" alt="Profilkép" loading="lazy">
+                    <p onclick="loadContent('api/profile/<%= post.user_id %>')" class="username"><%= post.username || 'Ismeretlen' %></p>
+                </div>
+            </div>
+
+            <!-- Bejegyzés szövege és csatolt kép -->
+            <p class="text" id="post-content-<%= post.id %>"><%= post.content || "Nincs tartalom" %></p>
+            <% if (post.attachment) { %>
+                <img src="<%= post.attachment %>" class="post-img" alt="Bejegyzéshez csatolt kép" loading="lazy">
+            <% } %>
+
+            <!-- Szerkesztő konténer -->
+            <div class="edit-container new-comment-container" id="edit-container-<%= post.id %>" style="display: none;">
+                <textarea class="new-comment-textbox" id="edit-content-<%= post.id %>"  maxlength="1024"><%= post.content || "" %></textarea>
+                <button class="editbutton" onclick="saveEditedPost(<%= post.id %>)">Mentés</button>
+                <button class="editbutton" onclick="cancelEdit(<%= post.id %>)">Mégse</button>
+            </div>
+
+            <!-- Gombokat tároló konténer -->
+            <span class="reactions">
+                <!-- Reakciók gombjai (like, dislike, komment) -->
+                <button class="likes" onclick="likePost(<%= post.id %>)">
+                    <i class="fa-regular fa-heart"></i> <%= post.reactions ? post.reactions.filter(reaction => reaction.type === 'like').length : 0 %>
+                </button>
+                <button class="dislikes" onclick="dislikePost(<%= post.id %>)">
+                    <i class="fa-regular fa-thumbs-down"></i> <%= post.reactions ? post.reactions.filter(reaction => reaction.type === 'dislike').length : 0 %>
+                </button>
+                <button class="comment-button" onclick="loadCommentTemplate(<%= post.id %>)">
+                    <i class="fa-solid fa-comment-dots"></i> <%= post.comments ? post.comments.length : 0 %>
+                </button>
+                <button onclick="showReportModal(<%= post.id %>)" id="report-mobile"><i class="fa-solid fa-circle-exclamation"></i></button>
+                <button id="delete-mobile" onclick="deletePost(<%= post.id %>)">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+                <button id="edit-mobile" onclick="editPost(<%= post.id %>)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+            </span>
+
+            <!-- Bejelentés, törlés és szerkesztés gombok -->
+            <button onclick="showReportModal(<%= post.id %>)" class="report"><i class="fa-solid fa-circle-exclamation"></i></button>
+            <button class="delete" onclick="deletePost(<%= post.id %>)">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+
+            <!-- Szerkesztés gomb -->
+            <button class="edit" onclick="editPost(<%= post.id %>)">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+
+            <!-- Kommentek szekció -->
+            <div class="comments-section" id="comments-container-<%= post.id %>">
+                <!-- Üres hely, ahová betöltjük a kommenteket -->
+            </div>
+        </div>
+    <% }) %>
+</div>
+

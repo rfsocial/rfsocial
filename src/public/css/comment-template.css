@@ -1,0 +1,140 @@
+* {
+  font-family: Lexend, serif;
+}
+
+.comment {
+  background-color: #006972;
+  color: white;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  text-wrap: wrap;
+}
+.comment .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.comment .header .header-left {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.comment .header .header-left img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.comment .header .header-left img:hover {
+  cursor: pointer;
+}
+.comment .header .username-date {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+.comment .header .username-date p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+.comment .header .username-date .comment-username:hover {
+  color: #9DF0FA;
+  cursor: pointer;
+}
+.comment .header .username-date .comment-username .date {
+  font-size: 12px;
+}
+.comment .header .header-right {
+  display: flex;
+}
+.comment .header .header-right button {
+  background: none;
+  border: none;
+}
+.comment .header .header-right i {
+  color: white;
+  font-size: large;
+}
+.comment .header .header-right i:hover {
+  color: #9DF0FA;
+  cursor: pointer;
+}
+.comment .body {
+  display: flex;
+}
+.comment .body p {
+  font-size: 14px;
+  max-width: 100%;
+}
+
+.editbutton {
+  background-color: #3A939D;
+  border: none;
+  color: white;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+}
+.editbutton:hover {
+  cursor: pointer;
+  background-color: #9DF0FA;
+}
+
+.comments-section {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease, opacity 0.2s ease-out;
+  opacity: 0;
+}
+
+.visible {
+  max-height: 100%;
+  opacity: 1;
+  display: block;
+}
+
+.new-comment-container {
+  display: block;
+  margin-bottom: 1rem;
+  max-width: 100%;
+  padding: 0.1rem;
+}
+
+.new-comment-input {
+  position: relative;
+  width: 100%;
+}
+
+.new-comment-textbox {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 2px solid #006972;
+  overflow: hidden;
+  resize: none;
+}
+
+.new-comment-input i {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.6rem;
+  margin-right: 2rem;
+  color: #006972;
+}
+
+.new-comment-input i:hover {
+  cursor: pointer;
+  color: black;
+}

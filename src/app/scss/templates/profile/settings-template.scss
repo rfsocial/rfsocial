@@ -1,0 +1,315 @@
+//TODO dokumentáció
+
+$accent-color: #006972;
+$hover-color: #9DF0FA;
+$error-color: #BA1A1A;
+$error-background: #FFDAD6;
+$border-radius: 10px;
+$box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+$mobile-max-width: 768px;
+
+@mixin formatInput(){
+  border: none;
+  border-radius: 25px;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+@mixin shadow($box-shadow){
+  box-shadow: $box-shadow;
+}
+
+@mixin roundpfp(){
+  border-radius: 50%;
+}
+
+*{
+  font-family: Lexend, serif;
+}
+
+.settings{
+  width: 100%;
+  height: 100%;
+  background-color: #D9D9D9;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: $border-radius;
+  @include shadow($box-shadow);
+
+  input:not([id="profilePicInput"]) {
+    @include formatInput;
+  }
+
+  textarea{
+    @include formatInput;
+    resize: none;
+    height: 75px;
+  }
+}
+
+.settings-header{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+
+  h1{
+    padding: 0;
+    margin-top: 20px;
+    font-size: x-large;
+  }
+
+  img{
+    width: 75px;
+    height: 75px;
+    @include roundpfp();
+    margin-right: 15px;
+  }
+
+  @media(max-width: $mobile-max-width){
+    align-items: center;
+    img {
+      width: 55px;
+      height: 55px;
+    }
+    h1{
+      width: 100%;
+      padding: 0 100px 0 0;
+      margin: 0;
+      text-align: center;
+      font-size: xx-large;
+    }
+  }
+}
+
+.username-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  input{
+    margin-left: 10px;
+  }
+
+  label{
+    font-size: larger;
+  }
+
+  div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .errormessage{
+    color: $error-color;
+    margin-left: 10px;
+  }
+
+  @media(max-width: $mobile-max-width){
+    flex-direction: column;
+    align-items: normal;
+
+    label{
+      margin-top: 10px;
+    }
+
+    input{
+      width: 40%;
+      margin: 10px 0 0 0;
+    }
+
+    div{
+      p{
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+.description{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: larger;
+  margin-bottom: 30px;
+  p{
+    margin-bottom: 5px;
+  }
+  textarea{
+    border-radius: 15px !important;
+    margin-top: 0;
+  }
+}
+
+.birthdate{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  input{
+    margin-left: 10px;
+  }
+  label{
+    font-size: larger;
+  }
+}
+
+.password{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0;
+
+  p{
+    margin-top: 0;
+    font-size: larger;
+  }
+
+  input{
+    width: 40%;
+    margin-bottom: 4px;
+  }
+
+  .passworderror{
+    display: flex;
+    flex-direction: row !important;
+    width: 100% !important;
+    align-items: center;
+    color: $error-color;
+
+    p{
+      margin: 0 0 0 10px;
+      padding: 0;
+      font-size: medium;
+    }
+  }
+}
+
+.profile-visibility{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  p{
+    font-size: larger;
+  }
+
+  .switch{
+    margin-left: 10px;
+    margin-top: 5px;
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+
+    input{
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .slider{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 25px;
+
+    &::before{
+      position: absolute;
+      content: "";
+      height: 19px;
+      width: 19px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: $accent-color;
+
+    &::before {
+      transform: translateX(24px);
+    }
+  }
+}
+
+.download-data{
+  display: flex;
+  flex-direction: column;
+
+  p{
+    font-size: larger;
+    margin: 0;
+  }
+
+  button{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    width: 30%;
+    background-color: $accent-color;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 7px;
+    transition: all .2s ease;
+
+    &:hover{
+      background-color: $hover-color;
+      color: black;
+      cursor: pointer;
+    }
+  }
+}
+
+.bottombuttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  button{
+    border: none;
+    border-radius: 25px;
+    padding: 7px;
+  }
+
+  .deleteprofile{
+    padding: 7px 60px;
+    border: 2px solid $error-color;
+    color: $error-color;
+    background-color: $error-background;
+    transition: all .2s ease;
+    &:hover{
+      background-color: $error-color;
+      color: $error-background;
+      cursor: pointer;
+    }
+  }
+
+  .save{
+    padding: 7px 40px;
+    background-color: $accent-color;
+    color: white;
+    transition: all .2s ease;
+
+    &:hover{
+      background-color: $hover-color;
+      color: black;
+      cursor: pointer;
+    }
+  }
+}
+
+#nametaken, #wrongcurrentpass, #passnotmatch {
+  display: none;
+}
+
+

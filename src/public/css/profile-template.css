@@ -1,0 +1,262 @@
+@charset "UTF-8";
+/*
+  "rounded" mixin
+  Cél: Egy elemnél való alkalmazásával lekerekített sarkok beállítása a paraméterben megadott mértékkel
+  Paraméterek:
+    - $border-radius (kötelező): A sarok lekerekítésének mértéke
+  Példa használat:
+    @include rounded(5px);
+ */
+/*
+  "removePaddingMargin" mixin
+  Cél: A paraméterben érkező típus szelektorok margin és padding értékeknek 0-ra állítása
+  Paraméterek:
+    $var... (kötelező): Tetszőleges mennyíségű típus szelektor, melyre a margin és padding eltávolítását alkalmazzuk
+  Példa használat:
+    @include removePaddingMargin(h1, h4, p);
+ */
+* {
+  font-family: Lexend, serif;
+}
+
+.profile {
+  width: 100%;
+  height: 100%;
+  background-color: #D9D9D9;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /*
+    Media query: Mobil nézetre (768 px alatt)
+    Cél: A profil elemek középre igazítása
+   */
+}
+.profile img {
+  width: 150px;
+  overflow: unset !important;
+  padding: 10px;
+  border-radius: 50%;
+}
+.profile hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+  height: 1px;
+  border: none;
+  border-top: 2px solid #BFBFBF;
+  display: block;
+}
+@media (max-width: 768px) {
+  .profile {
+    display: flex;
+    flex-direction: column;
+  }
+  .profile .img-container {
+    display: block;
+    text-align: center;
+  }
+}
+
+.profile-header {
+  margin-top: 25px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: row;
+  /*
+    'pulse-icon' class
+    Cél: Ha a felhasználó 'Online' állapotban van, az állapotjelző szöveget és ikont tartalmazó bekezdésen belül, az
+         állapotjelző ikon megkapja a 'pulse-icon' osztályt, így az alábbi formázások vonatkoznak rá
+   */
+  /*
+    Media query: Mobil nézetre (768 px alatt)
+    Cél: A profil fejlécében a tartalmak egymás alá helyezése és vízszintesen középre igazítása, gombok átméretezése
+   */
+}
+.profile-header h1 {
+  margin: 0;
+  padding: 0;
+}
+.profile-header p {
+  margin: 0;
+  padding: 0;
+}
+.profile-header .user-online {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+}
+.profile-header i {
+  margin-right: 3px;
+}
+.profile-header .pulse-icon {
+  animation: pulse 2s infinite;
+  color: green;
+}
+.profile-header .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 10px;
+}
+.profile-header .buttons button {
+  font-size: medium;
+  flex: 1;
+  padding: 5px 30px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+.profile-header .buttons button:hover {
+  background-color: #9DF0FA;
+  color: black;
+  cursor: pointer;
+}
+.profile-header .buttons button:disabled {
+  background-color: grey;
+}
+.profile-header .buttons .send-message {
+  border: none;
+  background-color: #006972;
+  color: white;
+}
+.profile-header .buttons .add-friend {
+  border: #006972 solid 3px;
+  background-color: white;
+  color: #006972;
+}
+@media (max-width: 768px) {
+  .profile-header {
+    float: none;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+  }
+  .profile-header .user-online {
+    display: block !important;
+  }
+  .profile-header .is-online {
+    margin-top: 5px;
+  }
+  .profile-header .friend-amount {
+    margin-top: 30px;
+  }
+  .profile-header .buttons {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .profile-header .buttons button {
+    padding: 5px 20px;
+  }
+}
+
+.descrip-contain {
+  float: none;
+  margin-top: 15px;
+  display: inline-flex;
+  flex-direction: column;
+}
+.descrip-contain h4 {
+  margin: 0;
+  padding: 0;
+}
+.descrip-contain p {
+  margin: 0;
+  padding: 0;
+}
+.descrip-contain p {
+  font-size: 15px;
+}
+.descrip-contain .description {
+  margin-bottom: 20px;
+  font-size: large;
+}
+
+.activity h4 {
+  margin: 0;
+  padding: 0;
+}
+.activity p {
+  margin: 0;
+  padding: 0;
+}
+.activity h4 {
+  margin-bottom: 10px;
+  font-size: large;
+}
+.activity a {
+  text-decoration: none;
+}
+.activity p {
+  font-size: 15px;
+}
+
+.friendpfp {
+  max-width: 50px !important;
+}
+.friendpfp:hover {
+  cursor: pointer;
+}
+
+/*
+  'priv-profile' class
+  Cél: A privát profil esetén megjelenő konténer formázása, ez a konténer akkor jelenik meg, ha az ábrázolandó profil
+       privát láthatóságú.
+ */
+.priv-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  font-size: xx-large;
+  color: grey;
+}
+.priv-profile i {
+  font-size: xxx-large;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.header-title {
+  width: 100%;
+  margin-left: 1rem;
+  margin-right: 2rem;
+}
+
+.profile-details {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+#view-posts {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #006972;
+}
+
+#view-posts:hover {
+  color: #9DF0FA;
+}
+
+.pending:hover {
+  background-color: grey;
+}

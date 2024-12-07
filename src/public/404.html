@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+    <style>
+        body {
+            background-color: #006972;
+        }
+        .not-found-text {
+            font-family: Lexend, serif;
+            font-size: 2rem;
+            color: white;
+            border-right: 2px solid white;
+            animation: typing 1s steps(23, end) forwards, blinkCursor 0.8s step-end infinite 1s forwards;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .text-container {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 23ch; }
+        }
+
+        @keyframes blinkCursor {
+            50% { border-color: transparent; }
+        }
+    </style>
+    <title>Az oldal nem található!</title>
+</head>
+<body>
+    <div class="text-container">
+        <span class="not-found-text">404 - Az oldal nem található!</span>
+    </div>
+</body>
+</html>

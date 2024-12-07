@@ -1,0 +1,65 @@
+{
+  "name": "rfsocial",
+  "version": "1.0.0",
+  "description": "A Rendszerfejlesztés I. tárgy 5. csoport projektmunkája - Közösség",
+  "main": "src/app/server.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node --env-file=.env src/app/server.js",
+    "dev": "nodemon --env-file=.env src/app/server.js",
+    "test": "jest --watchAll --verbose"
+  },
+  "keywords": [
+    "kozosseg",
+    "webalkalmazas",
+    "szte",
+    "rendszerfejlesztes 1."
+  ],
+  "author": "Csörgő Márk Ábrahám",
+  "contributors": [
+    {
+      "name": "Bartos Martin"
+    },
+    {
+      "name": "Tompos Róbert Ioan"
+    },
+    {
+      "name": "Banicz Zoltán"
+    },
+    {
+      "name": "Nagy Dániel"
+    },
+    {
+      "name": "Tóth Bálint"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^29.5.14",
+    "aws-sdk": "^2.1692.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "express-validation": "^4.1.1",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.13.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
+    "supertest": "^7.0.0"
+  }
+}

@@ -1,0 +1,43 @@
+<!-- TODO: mobilos nézet kijavítása, egyelőre csak desktopon működik -->
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/notifications.css">
+    <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/b24ccbfca6.js" crossorigin="anonymous"></script>
+    <title><%= title %></title>
+</head>
+<body>
+    <div class="notifications-template">
+        <% if(reports && reports.length > 0) { %>
+            <span class="toast-message"><i class="fa-solid fa-circle-exclamation"></i><%= title %></span>
+            <div class="notifications-container">
+                    <% reports.forEach(report => { %>
+                        <div id="notification-<%= report.id %>" class="notification-item read">
+                            <div class="notification-title-container">
+                                <div class="title-details">
+                                    <span class="notification-title">A bejelentés oka:</span>
+                                </div>
+                            </div>
+							
+                            <span class="notification-description"><%= report.szoveg %></span>
+
+                            <div class="notification-interaction-container">
+                                <div class="moderator-actions">
+									<textarea name="report-description" id="report-description<%= report.id %>" rows="2" placeholder="Megjegyzés"></textarea>
+									<button class="notification-delete-btn" onclick="handleReportFunc(<%= report.id %>, true, document.getElementById('report-description<%= report.id %>').value)">Törlés</button>
+									<button class="view-btn" onclick="handleReportFunc(<%= report.id %>, false, document.getElementById('report-description<%= report.id %>').value)">Mellőzés</button>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+            </div>
+        <% } else { %>
+            <p id="empty-label" style="display: block" >Nincsenek bejelentések.</p>
+        <% } %>
+    </div>
+
+</body>
+</html>

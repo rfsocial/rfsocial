@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>rfsocial - regisztráció</title>
+    <link rel="stylesheet" href="../css/register-style.css">
+    <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+</head>
+<body>
+
+<div class="typing-text">regisztráció</div>
+
+<div class="login-box">
+    <div class="login">
+        <h4>rfsocial</h4>
+        <div id="error-field" style="display:none;"></div>
+        <input id="username" type="text" placeholder="felhasználónév" required>
+        <input id="password" type="password" placeholder="jelszó" required>
+        <input id="password-again" type="password" placeholder="jelszó megerősítése" required>
+        <input id="email" type="email" placeholder="e-mail cím (opcionális)">
+        <div class="accept">
+            <input id="terms" type="checkbox">
+            <p>Elfogadom a felhasználási feltételeket</p>
+        </div>
+        <div class="buttons">
+            <a onclick="registerUser()"><button>Regisztráció</button></a>
+        </div>
+        <script>
+            function registerUser(){
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const passwordAgain = document.getElementById('password-again').value;
+                const email = document.getElementById('email').value;
+                const isChecked = document.getElementById('terms').checked;
+                const errorField = document.getElementById('error-field');
+
+                errorField.style.display = "none";
+                errorField.innerText = "";
+
+                if (!username || !password || !passwordAgain) {
+                    showError("\nTöltse ki a kötelező mezőket");
+                    return;
+                }
+
+                if (password !== passwordAgain) {
+                    showError("Nem egyeznek a jelszavak!");
+                    return;
+                }
+
+                if (!isChecked) {
+                    showError("El kell fogadnia a felhasználási feltételeket!");
+                    return;
+                }
+
+                if(username.length === 0 || password.length === 0) {
+
+                }
+                fetch(`/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(
+                        { username: username, password: password, email:email }
+                    )
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = '/login';
+                        } else if (response.status === 400) {
+                            showError("Ilyen nevű felhasználó már létezik!");
+                        } else if (response.status === 500) {
+                            showError("Hiba történt a regisztráció során!");
+                        }
+                    })
+                    .catch(error => console.error("Hiba:", error));
+
+                function showError(message) {
+                    const errorMessage = document.getElementById("error-field");
+                    errorMessage.innerText = message;
+                    errorMessage.style.display = "block";
+                }
+            }
+        </script>
+        <a href="/login">Már van fiókom</a>
+    </div>
+</div>
+
+
+</body>
+</html>

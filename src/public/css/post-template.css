@@ -1,0 +1,334 @@
+@charset "UTF-8";
+/*
+  =============================
+    Bejegyzés template stílusok
+    Cél: A bejegyzés template kinézete és interaktív elemei
+    Szerző: Csörgő Márk Ábrahám
+    Dátum: 2024/11/06
+  =============================
+*/
+/*
+  "rounded" mixin
+  Cél: Egy elemnél való alkalmazásával lekerekített sarkok beállítása a paraméterben megadott mértékkel
+  Paraméterek:
+    - $border-radius (kötelező): A sarok lekerekítésének mértéke
+  Példa használat:
+    @include rounded(5px);
+ */
+/*
+  "shadow" mixin
+  Cél: Egy elemnek árnyéknak adása, amely jobban kiemeli
+  Paraméterek:
+   - $box-shadow (kötelező): Egy előre definiált változót vár, ami tartalmazza az összes box-shadow-ra vonatkozó paramétert
+  Példa használat:
+    @include shadow($box-shadow);
+ */
+/*
+  "reactionbutton" mixin
+  Cél: Egy "reakció" gomb formázása, hogy minden gomb egységesen jelenjen meg a templateben.
+  Példa használat:
+    @include reactionbutton();
+ */
+* {
+  font-family: Lexend, serif;
+}
+
+.post-container {
+  background-color: white;
+  display: block;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+}
+
+.post-container {
+  width: 100%;
+  height: 100%;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-title {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.pfp {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-left: 15px;
+}
+.pfp:hover {
+  cursor: pointer;
+}
+
+.username {
+  display: inline-block;
+  margin-left: 15px;
+}
+.username:hover {
+  color: #006972;
+  cursor: pointer;
+}
+
+.date {
+  display: inline-block;
+  position: relative;
+  float: right;
+  margin-right: 15px;
+  font-size: smaller;
+}
+
+.text {
+  margin: 15px;
+  text-align: justify;
+  font-size: smaller;
+}
+@media (max-width: 950px) {
+  .text {
+    font-size: medium;
+  }
+}
+
+.post-img {
+  display: flex;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  /*
+    Media query: Mobil nézetre (768 px alatt)
+    Cél: A bejegyzéshez tartozó kép átméretezése, hogy a bejegyzés teljess szélésségét kitöltse, és a kerekítés
+         megszüntetése
+   */
+}
+@media (max-width: 950px) {
+  .post-img {
+    display: block;
+    margin: 0;
+    border-radius: 0;
+    max-width: 100%;
+    object-fit: cover;
+  }
+}
+
+.reactions {
+  display: inline-flex;
+  font-size: smaller;
+  justify-content: space-between;
+  color: white;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  border-radius: 10px;
+  padding: 2px;
+  background-color: #006972;
+  /*
+    Média query: Mobil nézetre (768px alatt)
+    Cél: Gombokat tartalmazó konténer átméretezése, gombok méretének megnövelése a könnyebb használat érdekében
+   */
+}
+.reactions button {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #006972;
+  color: white;
+  flex-direction: row;
+}
+.reactions button i {
+  font-size: large;
+}
+.reactions button i:hover {
+  color: #9DF0FA;
+  cursor: pointer;
+}
+.reactions button i {
+  margin-right: 5px;
+}
+@media (max-width: 950px) {
+  .reactions {
+    margin-right: 1rem;
+    margin-left: 1rem;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .reactions button {
+    font-size: medium;
+    flex-flow: column;
+  }
+  .reactions button i {
+    font-size: xx-large;
+  }
+}
+
+.report, .edit, .delete {
+  display: flex;
+  float: right;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  margin-top: 15px;
+  margin-right: 15px;
+  /*
+    Media query: Mobil nézetre (768px alatt)
+    Cél: Gombok megnagyítása és átrendezése
+   */
+}
+.report i, .edit i, .delete i {
+  font-size: x-large;
+  color: #006972;
+}
+.report i:hover, .edit i:hover, .delete i:hover {
+  color: #9DF0FA;
+}
+@media (max-width: 950px) {
+  .report, .edit, .delete {
+    margin-top: 0;
+    margin-right: 15px;
+    margin-left: auto;
+  }
+  .report i, .edit i, .delete i {
+    font-size: xx-large;
+    color: white;
+  }
+}
+
+.buttons {
+  align-items: center;
+  /*
+    Média query: Mobil nézetre (768px alatt)
+    Cél: Gombokat tartalmazó konténer áthelyezése és átszínezése
+   */
+}
+@media (max-width: 950px) {
+  .buttons {
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    background-color: #006972;
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 1px;
+  border: none;
+  border-top: 2px solid #006972;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: max-height 0.2s ease, opacity 0.2s ease-out;
+}
+
+.visible {
+  max-height: 100%;
+  opacity: 1;
+}
+
+.comments-button-active {
+  color: #9DF0FA !important;
+}
+
+/*.comments{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}*/
+.report-modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  transition: 0.3s;
+}
+
+.report-container {
+  background-color: #F5FAFB;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  margin: 15% auto;
+  width: 30%;
+}
+
+.report-content {
+  text-align: right;
+}
+
+.report-description {
+  display: block;
+  border: none;
+  resize: none;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 10rem;
+}
+
+.report-btn {
+  background-color: #006972;
+  border-radius: 0.6rem;
+  padding: 0.5rem 1.75rem;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 0.4rem;
+}
+
+.report-btn:hover {
+  background-color: #9DF0FA;
+  color: #001F23;
+  transition: 0.3s;
+}
+
+#return-last-page {
+  text-decoration: underline;
+  color: white;
+  font-size: 1.5rem;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+#return-last-page:hover {
+  cursor: pointer;
+  color: #9DF0FA;
+}
+
+#report-mobile, #delete-mobile, #edit-mobile {
+  display: none;
+}
+
+@media (max-width: 950px) {
+  #report-mobile, #delete-mobile, #edit-mobile {
+    display: inline-block;
+  }
+  .report, .delete, .edit {
+    display: none;
+  }
+}

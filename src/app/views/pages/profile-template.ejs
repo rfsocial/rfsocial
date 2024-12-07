@@ -1,0 +1,91 @@
+<%# ==================================
+    Template: Profil
+    Cél: Egy felhasználó profiljának megjelenítése, amely tartalmazza a felhasználó nevét, profilképét, leírását,
+         születési és regisztráció dátumát, az aktívítását (közzétett bejegyzések és hozzászólások száma, illetve
+         az ismerőseit. A template továbbá tartalmaz egy jelző szöveget és ikont, amelyek jelzik, hogy az aktuális
+         felhasználó be van jelentkezve, vagy sem.
+    Szerző: Csörgő Márk Ábrahám
+    Dátum: 2024/11/06
+    ================================== %>
+
+<!-- Profil fő konténere -->
+<div class="profile">
+    <div class="profile-header">
+        <%# Profilkép és hozzátartozó konténer %>
+        <div class="img-container"><img id="profilePic" src="<%= profileImg || 'pfp-placeholder.png'%>" alt="profilkép"></div>
+        <%# Profilkép fejlécének konténere %>
+        <div class="header-title">
+            <%# Online állapotjelzőt tartalmazó konténer %>
+            <div class="user-online">
+                <h1 class="profile-username"><%= isModerator ? username + ' (Moderátor)' : username || 'username'%></h1>
+                <%# Állapotjelző szöveg és ikont tartalmazó bekezdés.
+                    Ha a felhasználó be van jelentkezve, a szöveg, zöld szinű, egyébként szürke.
+                    Ha a profil privát (!profile.isPublic), akkor ez az elem nem jelenik meg. %>
+                <p class="is-online" style="<%= isOnline ? 'color:green;' : 'color:grey;'%> <%= (isPublic || isOwnProfile) ? '' : 'display: none;'%>">
+                    <%# Ha a felhasználó be van jelentkezve, akkor 'pulse-icon' class jellemzőt kap, egyébként nem%>
+                    <i class="fa-solid fa-circle <%= isOnline ? 'pulse-icon' : '' %>"></i>
+                    <%= statusLabel %></p>
+            </div>
+            <%# Ismerősők számát jelző bekezdés.
+                Ha a profil privát (!profile.isPublic), akkor ez az elem nem jelenik meg.%>
+            <p class="friend-amount" style="<%= isPublic ? '' : 'display:none;'%>"><%= friendsCount + ' ismerős' || '- ismerős'%></p>
+
+            <%if(!isOwnProfile){%>
+                <%# Gombokat tároló konténer (ismerősnek jelölöm, üzenet küldése %>
+                <div class="buttons">
+                    <% if(friendStatus === FriendStatus.ACCEPTED) { %>
+                        <button class="add-friend" onclick="deleteFriend(<%= userId %>)" >Ismerős törlése</button>
+                    <% } else if(friendStatus === FriendStatus.PENDING) { %>
+                        <button class="add-friend" style="border: none; color: lightgray; cursor: default;" disabled >Ismerős jelölés függőben</button>
+                    <% } else if(friendStatus === FriendStatus.NOT_EXIST) { %>
+                        <button class="add-friend" onclick="sendFriendRequest(<%= userId %>)" >Ismerősnek jelölöm</button>
+                    <% }%>
+                    <button class="send-message" onclick="showMessageModal()">Üzenet küldése</button>
+                </div>
+            <%}%>
+        </div>
+    </div>
+    <%# Ha a profil publikus (isPublic == true), akkor az 'else' ágig találhatóak ábrázolva lesznek %>
+    <%if(isPublic || isOwnProfile){%>
+    <div class="profile-details">
+        <%# Leírást és egyéb információkat tartalmazó konténer (születési dátum és regisztráció dátuma) %>
+        <div class="descrip-contain">
+            <h4 class="description"><%= introduction || "Ennek a felhasználónak nincs bemutatkozása."%></h4>
+            <p class="birthDate">Születési dátum: <%= dateOfBirth || 'Nincs beállítva'%></p>
+            <p class="registrationDate">Regisztráció dátuma: <%= registrationDate || '1970/01/01'%></p>
+        </div>
+
+        <%# A konténeren vízszintesen áthaladó vékony vonal, a tartalom elválasztásához %>
+        <hr>
+
+        <%# Aktívításra vonatkozó szövegeket tartalmazó konténer %>
+        <div class="activity">
+            <h4>Aktivítás</h4>
+            <%# Az összes bejegyzést meg lehet tekinteni a linken keresztül %>
+            <p class="post-count">Közzétett bejegyzések: <%= postCount || 0%><%if(postCount > 0){%>
+                    <span id="view-posts" onclick="loadContent('api/posts/<%= userId %>')"> (Megtekintés)</span><%}%></p>
+            <p class="comment-count">Összes hozzászólás: <%= commentCount || 0%></p>
+        </div>
+
+        <%# A konténeren vízszintesen áthaladó vékony vonal, a tartalom elválasztásához %>
+        <hr>
+
+        <h4>Ismerősök (<%= friendsCount%>)</h4>
+
+        <%# Ismerősök felsorolását tároló konténer %>
+        <div class="friends">
+            <%# Ciklus segítségével egyesével felsorakztatja az ismerősök profilképeit %>
+            <% friends.forEach(friend => { %>
+                <img class="friendpfp" src="<%= friend.profile_picture %>" onclick="loadContent('api/profile/<%= friend.id %>')" alt="profilkép" loading="lazy">
+            <% }); %>
+        </div>
+    </div>
+    <%# Ha privát a profil (isPublic == false), akkor egy lakat ikon, és a "Privát profil." szöveg kerül %>
+    <%# megjelenítésre a fenti if ágba lévő tartalom helyett %>
+    <%}else if(!isPublic && !isOwnProfile){%>
+        <div class="priv-profile">
+            <i class="fa-solid fa-lock"></i>
+            <p>Privát profil.</p>
+        </div>
+    <%}%>
+</div>

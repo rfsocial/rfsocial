@@ -1,0 +1,265 @@
+* {
+  font-family: Lexend, serif;
+}
+
+.settings {
+  width: 100%;
+  height: 100%;
+  background-color: #D9D9D9;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.settings input:not([id=profilePicInput]) {
+  border: none;
+  border-radius: 25px;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+.settings textarea {
+  border: none;
+  border-radius: 25px;
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  resize: none;
+  height: 75px;
+}
+
+.settings-header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+.settings-header h1 {
+  padding: 0;
+  margin-top: 20px;
+  font-size: x-large;
+}
+.settings-header img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+@media (max-width: 768px) {
+  .settings-header {
+    align-items: center;
+  }
+  .settings-header img {
+    width: 55px;
+    height: 55px;
+  }
+  .settings-header h1 {
+    width: 100%;
+    padding: 0 100px 0 0;
+    margin: 0;
+    text-align: center;
+    font-size: xx-large;
+  }
+}
+
+.username-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.username-div input {
+  margin-left: 10px;
+}
+.username-div label {
+  font-size: larger;
+}
+.username-div div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.username-div .errormessage {
+  color: #BA1A1A;
+  margin-left: 10px;
+}
+@media (max-width: 768px) {
+  .username-div {
+    flex-direction: column;
+    align-items: normal;
+  }
+  .username-div label {
+    margin-top: 10px;
+  }
+  .username-div input {
+    width: 40%;
+    margin: 10px 0 0 0;
+  }
+  .username-div div p {
+    margin-bottom: 5px;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: larger;
+  margin-bottom: 30px;
+}
+.description p {
+  margin-bottom: 5px;
+}
+.description textarea {
+  border-radius: 15px !important;
+  margin-top: 0;
+}
+
+.birthdate {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+.birthdate input {
+  margin-left: 10px;
+}
+.birthdate label {
+  font-size: larger;
+}
+
+.password {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0;
+}
+.password p {
+  margin-top: 0;
+  font-size: larger;
+}
+.password input {
+  width: 40%;
+  margin-bottom: 4px;
+}
+.password .passworderror {
+  display: flex;
+  flex-direction: row !important;
+  width: 100% !important;
+  align-items: center;
+  color: #BA1A1A;
+}
+.password .passworderror p {
+  margin: 0 0 0 10px;
+  padding: 0;
+  font-size: medium;
+}
+
+.profile-visibility {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.profile-visibility p {
+  font-size: larger;
+}
+.profile-visibility .switch {
+  margin-left: 10px;
+  margin-top: 5px;
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+.profile-visibility .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.profile-visibility .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 25px;
+}
+.profile-visibility .slider::before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.profile-visibility input:checked + .slider {
+  background-color: #006972;
+}
+.profile-visibility input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+.download-data {
+  display: flex;
+  flex-direction: column;
+}
+.download-data p {
+  font-size: larger;
+  margin: 0;
+}
+.download-data button {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  width: 30%;
+  background-color: #006972;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 7px;
+  transition: all 0.2s ease;
+}
+.download-data button:hover {
+  background-color: #9DF0FA;
+  color: black;
+  cursor: pointer;
+}
+
+.bottombuttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.bottombuttons button {
+  border: none;
+  border-radius: 25px;
+  padding: 7px;
+}
+.bottombuttons .deleteprofile {
+  padding: 7px 60px;
+  border: 2px solid #BA1A1A;
+  color: #BA1A1A;
+  background-color: #FFDAD6;
+  transition: all 0.2s ease;
+}
+.bottombuttons .deleteprofile:hover {
+  background-color: #BA1A1A;
+  color: #FFDAD6;
+  cursor: pointer;
+}
+.bottombuttons .save {
+  padding: 7px 40px;
+  background-color: #006972;
+  color: white;
+  transition: all 0.2s ease;
+}
+.bottombuttons .save:hover {
+  background-color: #9DF0FA;
+  color: black;
+  cursor: pointer;
+}
+
+#nametaken, #wrongcurrentpass, #passnotmatch {
+  display: none;
+}

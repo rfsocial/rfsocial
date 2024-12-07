@@ -1,0 +1,378 @@
+/*
+  =============================
+    Bejegyzés template stílusok
+    Cél: A bejegyzés template kinézete és interaktív elemei
+    Szerző: Csörgő Márk Ábrahám
+    Dátum: 2024/11/06
+  =============================
+*/
+
+// Változók
+$accent-color: #006972;
+$hover-color: #9DF0FA;
+$border-radius: 10px;
+$box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+$mobile-max-width: 950px;
+
+/*
+  "rounded" mixin
+  Cél: Egy elemnél való alkalmazásával lekerekített sarkok beállítása a paraméterben megadott mértékkel
+  Paraméterek:
+    - $border-radius (kötelező): A sarok lekerekítésének mértéke
+  Példa használat:
+    @include rounded(5px);
+ */
+@mixin rounded($border-radius){
+  border-radius: $border-radius;
+}
+
+// "roundpfp" mixin: Profilkép kerekké alakítása
+@mixin roundpfp(){
+  border-radius: 50%;
+}
+
+/*
+  "shadow" mixin
+  Cél: Egy elemnek árnyéknak adása, amely jobban kiemeli
+  Paraméterek:
+   - $box-shadow (kötelező): Egy előre definiált változót vár, ami tartalmazza az összes box-shadow-ra vonatkozó paramétert
+  Példa használat:
+    @include shadow($box-shadow);
+ */
+@mixin shadow($box-shadow){
+  box-shadow: $box-shadow;
+}
+
+/*
+  "reactionbutton" mixin
+  Cél: Egy "reakció" gomb formázása, hogy minden gomb egységesen jelenjen meg a templateben.
+  Példa használat:
+    @include reactionbutton();
+ */
+@mixin reactionbutton(){
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  padding: 5px;
+  border-radius: $border-radius;
+  background-color: $accent-color;
+  color: white;
+
+  i{
+    font-size: large;
+      &:hover{
+        color: $hover-color;
+        cursor: pointer;
+      }
+    }
+}
+
+//Egész template-re érvényes formázások (betűtípus beállítása)
+*{
+  font-family: Lexend, serif;
+}
+
+//Bejegyzés konténere
+.post-container{
+  background-color: white;
+  display: block;
+  flex-direction: column;
+  align-items: center;
+  @include shadow($box-shadow);
+  @include rounded($border-radius);
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+}
+
+.post-container {
+  width: 100%;
+  height: 100%;
+}
+
+//Bejegyzés fejléce
+.post-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+//Bejegyzést létrehozo felhasználó neve és profilképe
+.post-title{
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+//Profilkép
+.pfp{
+  @include roundpfp();
+  width: 50px;
+  height: 50px;
+  margin-left: 15px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+//Felhasználónév
+.username{
+  display: inline-block;
+  margin-left: 15px;
+  &:hover{
+    color: $accent-color;
+    cursor: pointer;
+  }
+}
+
+//Közzététel dátuma
+.date{
+  display: inline-block;
+  position: relative;
+  float: right;
+  margin-right: 15px;
+  font-size: smaller;
+}
+
+//Bejegyzés szövege
+.text{
+  margin: 15px;
+  text-align: justify;
+  font-size: smaller;
+
+  //Mobil nézet (768 px alatt)
+  @media (max-width: $mobile-max-width){
+    //Betűméret megnövelése
+    font-size: medium;
+  }
+}
+
+//Bejegyzéshez tartozó kép
+.post-img{
+  display: flex;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  @include rounded($border-radius);
+
+  /*
+    Media query: Mobil nézetre (768 px alatt)
+    Cél: A bejegyzéshez tartozó kép átméretezése, hogy a bejegyzés teljess szélésségét kitöltse, és a kerekítés
+         megszüntetése
+   */
+  @media (max-width: $mobile-max-width){
+    display: block;
+    margin: 0;
+    border-radius: 0;
+    max-width: 100%;
+    object-fit: cover;
+  }
+}
+
+//Reakciókat tároló konténer
+.reactions {
+  display: inline-flex;
+  font-size: smaller;
+  justify-content: space-between;
+  color: white;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  @include rounded($border-radius);
+  padding: 2px;
+  background-color: $accent-color;
+
+  button {
+    @include reactionbutton();
+    flex-direction: row;
+    i{
+      margin-right: 5px;
+    }
+  }
+
+  /*
+    Média query: Mobil nézetre (768px alatt)
+    Cél: Gombokat tartalmazó konténer átméretezése, gombok méretének megnövelése a könnyebb használat érdekében
+   */
+  @media(max-width: $mobile-max-width){
+    margin-right: 1rem;
+    margin-left: 1rem;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    button{
+      font-size: medium;
+      flex-flow: column;
+
+      i{
+        font-size: xx-large;
+      }
+    }
+  }
+}
+
+// Bejelentés, szerkesztés és törlés gombok külön formázása
+.report, .edit, .delete{
+  display: flex;
+  float: right;
+  border: none;
+  @include rounded(50%);
+  background-color: transparent;
+  margin-top: 15px;
+  margin-right: 15px;
+
+  i{
+    font-size: x-large;
+    color: $accent-color;
+
+    &:hover{
+      color: $hover-color;
+    }
+  }
+
+  /*
+    Media query: Mobil nézetre (768px alatt)
+    Cél: Gombok megnagyítása és átrendezése
+   */
+  @media (max-width: $mobile-max-width){
+    margin-top: 0;
+    margin-right: 15px;
+    margin-left: auto;
+
+    i{
+      font-size: xx-large;
+      color: white;
+    }
+  }
+}
+
+// Gombokat tartalmazó konténer
+.buttons{
+  align-items: center;
+
+  /*
+    Média query: Mobil nézetre (768px alatt)
+    Cél: Gombokat tartalmazó konténer áthelyezése és átszínezése
+   */
+  @media (max-width: $mobile-max-width){
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    background-color: $accent-color;
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+hr{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 1px;
+  border: none;
+  border-top: 2px solid $accent-color;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: max-height 0.2s ease, opacity 0.2s ease-out;
+}
+
+.visible {
+  max-height: 100%;
+  opacity: 1;
+}
+
+.comments-button-active {
+  color: $hover-color !important;
+}
+
+/*.comments{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}*/
+
+// felugró bejelentő ablak (bmartin)
+.report-modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 1000;
+  transition: 0.3s;
+}
+
+.report-container {
+  background-color: #F5FAFB;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  margin: 15% auto;
+  width: 30%;
+}
+
+.report-content {
+  text-align: right;
+}
+
+.report-description {
+  display: block;
+  border: none;
+  resize: none;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 10rem;
+}
+
+.report-btn {
+  background-color: $accent-color;
+  border-radius: 0.6rem;
+  padding: 0.5rem 1.75rem;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 0.4rem;
+}
+
+.report-btn:hover {
+  background-color: $hover-color;
+  color: #001F23;
+  transition: 0.3s;
+}
+
+#return-last-page {
+  text-decoration: underline;
+  color: white;
+  font-size: 1.5rem;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+#return-last-page:hover {
+  cursor: pointer;
+  color: $hover-color;
+}
+
+#report-mobile, #delete-mobile, #edit-mobile {
+  display: none;
+}
+
+@media (max-width: $mobile-max-width) {
+  #report-mobile, #delete-mobile, #edit-mobile {
+    display: inline-block;
+  }
+
+  .report, .delete, .edit {
+    display: none;
+  }
+}
+

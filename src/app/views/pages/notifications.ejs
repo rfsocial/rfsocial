@@ -1,0 +1,53 @@
+<!-- TODO: mobilos nézet kijavítása, egyelőre csak desktopon működik -->
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/notifications.css">
+    <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/b24ccbfca6.js" crossorigin="anonymous"></script>
+    <title><%= title %></title>
+</head>
+<body>
+    <div class="notifications-template">
+        <% if(notifications && notifications.length > 0) { %>
+            <span class="toast-message"><i class="fa-solid fa-circle-exclamation"></i><%= notificationsLabel %></span>
+            <div class="notifications-container">
+                    <% notifications.forEach(notification => { %>
+                        <div id="notification-id-<%= notification.id %>" class="notification-item <%= notification.read ? 'read' : 'unread' %>">
+                            <div class="notification-title-container">
+                                <div class="title-details">
+                                    <img <%= notification.picture_url ? '' : 'style=display:none;'%> src="<%= notification.picture_url %>" alt="értesítéshez tartozó kép">
+                                    <span class="notification-title"><%= notification.title %></span>
+                                    <span class="notification-date">(<%= notification.relative_time %>)</span>
+                                </div>
+                                <span class="notification-read-btn"
+                                      onclick="toggleNotificationRead('<%= notification.id %>', <%= notification.read %>)">
+                                      <%= notification.read ? "Olvasatlannak" : "Olvasottnak" %> jelölés
+                                </span>
+                            </div>
+                            <span class="notification-description"><%= notification.text %></span>
+                            <div class="notification-interaction-container">
+                                <div class="added-interactions">
+                                    <% if(notification.interaction_type === NotificationInteraction.FRIEND_REQUEST) { %>
+                                        <button class="accept-btn" onclick="handleNotificationInteraction('<%= notification.id %>', '<%= notification.user_id %>', 'friend-request', true, '<%= notification.link_id %>')">Elfogadás</button>
+                                        <button class="reject-btn" onclick="handleNotificationInteraction('<%= notification.id %>', '<%= notification.user_id %>', 'friend-request', false, '<%= notification.link_id %>')">Elutasítás</button>
+                                    <% } else if(notification.interaction_type === NotificationInteraction.VIEW) { %>
+                                        <button class="view-btn" onclick="handleNotificationInteraction('<%= notification.id %>', '<%= notification.user_id %>', 'view', false, '<%= notification.link_id %>')" >Megtekintés</button>
+                                    <% } %>
+                                </div>
+                                <% if(notification.interaction_type !== NotificationInteraction.FRIEND_REQUEST) { %>
+                                    <button class="notification-delete-btn" onclick="deleteNotification('<%= notification.id %>')">Értesítés törlése</button>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }) %>
+            </div>
+        <% } else { %>
+            <p id="empty-label" style="display: block" >Nincsenek értesítések.</p>
+        <% } %>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<hr>
+
+<div class="new-comment-container">
+    <div class="new-comment-input">
+        <textarea class="new-comment-textbox" placeholder="Új hozzászólás.."></textarea>
+        <!-- Az addComment függvényt a postId átadásával hívjuk meg -->
+        <i onclick="addComment(<%= postId %>)" class="fa-solid fa-arrow-right"></i>
+    </div>
+</div>
+
+<% comments.forEach(comment => { %>
+    <div class="comment" id="comment-<%= comment.id %>">
+        <div class="header">
+            <div class="header-left">
+                <img onclick="loadContent('api/profile/<%= comment.user_id %>')" src="<%= comment.user.profile_picture || '../images/pfp-placeholder.png' %>" alt="profilkép">
+                <div class="username-date">
+                    <p class="comment-username" onclick="loadContent('api/profile/<%= comment.user_id %>')"><%= comment.username || 'Te' %></p>
+                    <p class="date"><%= comment.relativeDate %></p>
+                </div>
+            </div>
+            <div class="header-right">
+                <button onclick="showReportModal(<%= postId %>, <%= comment.id %>)" class="creport">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </button>
+                <button class="cdelete" onclick="deleteComment(<%= postId %>, <%= comment.id %>)">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+                <button onclick="editComment(<%= postId %>, <%= comment.id %>)" class="cedit">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+            </div>
+        </div>
+        <div class="body" id="comment-body-<%= comment.id %>">
+            <p id="comment-content-<%= comment.id %>"><%= comment.content %></p>
+        </div>
+        <div class="edit-container" id="edit-comment-container-<%= comment.id %>" style="display: none;">
+            <textarea class="new-comment-textbox" id="edit-textarea-<%= comment.id %>"><%= comment.content %></textarea>
+            <button class="editbutton" onclick="saveEditedComment(<%= postId %>, <%= comment.id %>)">Mentés</button>
+            <button class="editbutton" onclick="cancelEditComment(<%= comment.id %>)">Mégse</button>
+        </div>
+    </div>
+<% }) %>
+

@@ -1,0 +1,80 @@
+$accent-color: #006972;
+$hover-color: #9DF0FA;
+$fill-color: #CDE7EB;
+$error-color: #BA1A1A;
+$error-background: #FFDAD6;
+$border-radius: 10px;
+$box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+$mobile-max-width: 768px;
+
+*{
+  font-family: Lexend, serif;
+}
+
+body{
+  background-color: $accent-color;
+}
+
+.login-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.login{
+  background-color: white;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+
+  #error-field{
+    color: $error-color;
+  }
+
+  h4{
+    text-align: center;
+    padding: 0;
+    margin: 0 0 20px 0;
+    font-size: x-large;
+    color: $accent-color;
+    font-weight: normal;
+  }
+
+  input{
+    width: 80%;
+    border: none;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: $fill-color;
+    margin: 0 0 20px 0;
+  }
+
+  a{
+    text-decoration: none;
+    color: $accent-color;
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
+
+  button{
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    padding: 15px;
+    font-size: medium;
+    background-color: $hover-color;
+    &:hover{
+      background-color: $fill-color;
+      cursor: pointer;
+    }
+  }
+
+  @media(max-width: $mobile-max-width){
+    width: 75%;
+  }
+}

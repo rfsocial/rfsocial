@@ -1,0 +1,307 @@
+// =============================
+// Profil template stílusok
+// Cél: A profil template kinézete és interaktív elemei
+// Szerző: Csörgő Márk Ábrahám
+// Dátum: 2024/11/06
+// =============================
+
+
+// Változók
+$accent-color: #006972;
+$hover-color: #9DF0FA;
+$border-radius: 10px;
+$box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+$mobile-max-width: 768px;
+
+
+/*
+  "rounded" mixin
+  Cél: Egy elemnél való alkalmazásával lekerekített sarkok beállítása a paraméterben megadott mértékkel
+  Paraméterek:
+    - $border-radius (kötelező): A sarok lekerekítésének mértéke
+  Példa használat:
+    @include rounded(5px);
+ */
+@mixin rounded($border-radius){
+  border-radius: $border-radius;
+}
+
+// "roundpfp" mixin: Profilkép kerekké alakítása
+@mixin roundpfp(){
+  border-radius: 50%;
+}
+
+/*
+  "removePaddingMargin" mixin
+  Cél: A paraméterben érkező típus szelektorok margin és padding értékeknek 0-ra állítása
+  Paraméterek:
+    $var... (kötelező): Tetszőleges mennyíségű típus szelektor, melyre a margin és padding eltávolítását alkalmazzuk
+  Példa használat:
+    @include removePaddingMargin(h1, h4, p);
+ */
+@mixin removePaddingMargin($var...){
+  @each $sel in $var{
+    #{$sel} {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+//Egész template-re érvényes formázások (betűtípus beállítása)
+*{
+  font-family: Lexend, serif;
+}
+
+//Profil konténere
+.profile{
+  width: 100%;
+  height: 100%;
+  background-color: #D9D9D9;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  @include rounded($border-radius);
+  box-shadow: $box-shadow;
+  // Profil konténerben megjelenő képekre vonatkozó formázások
+  img{
+    width: 150px;
+    overflow: unset !important;
+    padding: 10px;
+    @include roundpfp();
+  }
+  // Konténeren áthaladó vékony vonalra vonatkozó formázások
+  hr{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 1px;
+    border: none;
+    border-top: 2px solid #BFBFBF;
+    display: block;
+  }
+
+  /*
+    Media query: Mobil nézetre (768 px alatt)
+    Cél: A profil elemek középre igazítása
+   */
+  @media(max-width: $mobile-max-width) {
+    display: flex;
+    flex-direction: column;
+    .img-container{
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
+// Profil fejléc konténere
+.profile-header{
+  margin-top: 25px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: row;
+  @include removePaddingMargin(h1, p);
+
+  // Online állapotjelzőt tartalmazó konténer
+  .user-online{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+  }
+
+  // Online állapotjelző ikonja
+  i{
+    margin-right: 3px;
+  }
+
+  /*
+    'pulse-icon' class
+    Cél: Ha a felhasználó 'Online' állapotban van, az állapotjelző szöveget és ikont tartalmazó bekezdésen belül, az
+         állapotjelző ikon megkapja a 'pulse-icon' osztályt, így az alábbi formázások vonatkoznak rá
+   */
+  .pulse-icon {
+    // 'pulse' @keyframes beállítása animációként, így a zöld szín a keyframes hatására enyhén világosodik, majd újra sötétül
+    animation: pulse 2s infinite;
+    color: green;
+  }
+
+  // Gombokra vonatkozó formázás
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 10px;
+
+    button{
+      font-size: medium;
+      flex: 1;
+      padding: 5px 30px;
+      @include rounded(10px);
+      transition: all .2s ease;
+
+      &:hover{
+        background-color: $hover-color;
+        color: black;
+        cursor: pointer;
+      }
+
+      &:disabled{
+        background-color: grey;
+      }
+    }
+
+    .send-message{
+      border: none;
+      background-color: $accent-color;
+      color: white;
+    }
+
+    .add-friend{
+      border: $accent-color solid 3px;
+      background-color: white;
+      color: $accent-color;
+    }
+  }
+
+  /*
+    Media query: Mobil nézetre (768 px alatt)
+    Cél: A profil fejlécében a tartalmak egymás alá helyezése és vízszintesen középre igazítása, gombok átméretezése
+   */
+  @media(max-width: $mobile-max-width) {
+      float: none;
+      margin-top: 0;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      text-align: center;
+
+      .user-online {
+        display: block !important;
+      }
+
+      .is-online{
+        margin-top: 5px;
+      }
+
+      .friend-amount{
+        margin-top: 30px;
+      }
+
+      .buttons {
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+
+        button {
+          padding: 5px 20px;
+        }
+      }
+    }
+}
+
+// Leírás konténere
+.descrip-contain{
+  float: none;
+  margin-top: 15px;
+  display: inline-flex;
+  flex-direction: column;
+  @include removePaddingMargin(h4, p);
+
+  p{
+    font-size: 15px;
+  }
+  .description{
+    margin-bottom: 20px;
+    font-size: large;
+  }
+}
+
+// Aktivításra vonatkozó konténer
+.activity{
+  @include removePaddingMargin(h4, p);
+
+  h4{
+    margin-bottom: 10px;
+    font-size: large;
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  p{
+    font-size: 15px;
+  }
+}
+
+// Ismerősöknek megjelenő profilképe
+.friendpfp{
+  max-width: 50px !important;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+/*
+  'priv-profile' class
+  Cél: A privát profil esetén megjelenő konténer formázása, ez a konténer akkor jelenik meg, ha az ábrázolandó profil
+       privát láthatóságú.
+ */
+.priv-profile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  font-size: xx-large;
+  color: grey;
+  i{
+    font-size: xxx-large;
+  }
+}
+
+// Online állapot esetén a jelző ikonnak pulzáló animáció, amely az átlátszóságot állítja 1-ről 0.7-re, majd vissza 1-re
+@keyframes pulse {
+0% {
+  opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.header-title {
+  width: 100%;
+  margin-left: 1rem;
+  margin-right: 2rem;
+}
+
+.profile-details {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+#view-posts {
+  text-decoration: underline;
+  cursor: pointer;
+  color: $accent-color
+}
+
+#view-posts:hover {
+  color: $hover-color;
+}
+
+.pending:hover {
+  background-color: grey;
+}
+

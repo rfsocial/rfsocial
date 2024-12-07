@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>rfsocial - bejelentkezés</title>
+    <link rel="stylesheet" href="../css/login-style.css">
+    <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+    <script>
+        function login() {
+            const username = document.getElementById("log-name").value;
+            const password = document.getElementById("log-pass").value;
+
+            const error_label = document.getElementById("error-label");
+            if(username.length === 0 || password.length === 0) {
+                error_label.style.display = "block";
+                error_label.innerText = "Üres felhasználónév vagy jelszó!";
+                return;
+            }
+            fetch(`/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    { username: username, password: password }
+                )
+            })
+                .then(response => {
+                    if (response.ok) {
+                        error_label.style.display = "none";
+                        window.location.href = '/app';
+                    } else if(response.status === 400) {
+                        error_label.style.display = "block";
+                        error_label.innerText = "Hibás felhasználónév vagy jelszó!";
+                    }
+                })
+                .catch(error => console.error("Hiba:", error));
+        }
+    </script>
+</head>
+<body>
+    <div class="typing-text">üdvözlet az rfsocial weboldalán</div>
+    <div class="login-box">
+        <div class="login">
+            <h4>rfsocial</h4>
+            <input id="log-name" type="text" placeholder="felhasználónév" required>
+            <input id="log-pass" type="password" placeholder="jelszó" required>
+            <span id="error-label">Hibás felhasználónév vagy jelszó!</span>
+            <a href="/register">Regisztráció</a>
+            <div class="buttons">
+                <a onclick="login()"><button>Bejelentkezés</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

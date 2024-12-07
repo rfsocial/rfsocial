@@ -1,0 +1,35 @@
+<div class="post-section">
+    <% if(!isBackNeeded) { %>
+        <div class="new-post">
+            <textarea id="post-content" placeholder="Írd le gondolataid..." required></textarea>
+            <div class="file-upload">
+                <label for="file-input" class="custom-file-label">fájl kiválasztása</label>
+                <input type="file" id="file-input" class="custom-file-input" onchange="showFileName()">
+                <span id="file-name">nincs fájl kiválasztva</span>
+            </div>
+            <button onclick="submitPost()">közzététel</button>
+
+            <script>
+                const textarea = document.getElementById('post-content');
+
+                textarea.addEventListener('input', () => {
+                    textarea.style.height = 'auto'; // Reset to allow shrinking
+                    textarea.style.height = textarea.scrollHeight + 'px'; // Grow to content
+                });
+
+                function showFileName() {
+                    const fileInput = document.getElementById('file-input');
+                    const fileNameDisplay = document.getElementById('file-name');
+
+                    // Display selected file name or "No file chosen" if no file
+                    fileNameDisplay.textContent = fileInput.files.length > 0
+                        ? fileInput.files[0].name
+                        : "nincs fájl kiválasztva";
+                }
+
+
+            </script>
+        </div>
+    <% }%>
+    <%- include('../pages/post-template'); %>
+</div>

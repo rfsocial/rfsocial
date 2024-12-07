@@ -1,0 +1,14 @@
+<div class="edit-section hidden" id="edit-container-<%= postId %>">
+    <!-- Textarea a bejegyzés szerkesztéséhez -->
+    <textarea id="edit-textarea-<%= postId %>" class="edit-textarea"><%= postContent || "" %></textarea>
+
+    <!-- Mentés gomb -->
+    <button onclick="saveEditedPost(<%= postId %>)" class="save-btn">
+        Mentés
+    </button>
+
+    <!-- Mégse gomb -->
+    <button onclick="cancelEdit(<%= postId %>)" class="cancel-btn">
+        Mégse
+    </button>
+</div>

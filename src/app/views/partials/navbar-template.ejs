@@ -1,0 +1,54 @@
+<nav class="navbar">
+    <div id="logo-container">
+        <h1 id="logo">rfsocial</h1>
+    </div>
+    <!-- Ha be van jelentkezve -->
+    <a onclick="loadContent('api/posts')" class="nav-item">
+        <span class="nav-text">hírfolyam</span>
+        <i class="fa-solid fa-house nav-icon"></i>
+    </a>
+    <a onclick="loadContent('api/profile')" class="nav-item">
+        <span class="nav-text">profil</span>
+        <i class="fa-solid fa-user nav-icon"></i>
+    </a>
+    <a onclick="loadContent('api/notifications')" class="nav-item">
+        <span class="nav-text">értesítések</span>
+        <i class="fa-solid fa-bell nav-icon"></i>
+    </a>
+
+    <% if(isModerator) { %>
+        <a onclick="loadContent('api/reports')" class="nav-item">
+            <span class="nav-text">bejelentések</span>
+            <i class="fa-solid fa-circle-exclamation nav-icon"></i>
+        </a>
+    <% } %>
+
+    <a onclick="loadContent('api/settings')" class="nav-item mobile-hidden">
+        <span class="nav-text">beállítások</span>
+        <i class="fa-solid fa-gear nav-icon"></i>
+    </a>
+
+    <a id="messages-nav-item" onclick="loadContent('api/messages/chat-mobile-view')" class="nav-item mobile-hidden">
+        <span class="nav-text">üzenetek</span>
+        <i class="fa-solid fa-envelope nav-icon"></i>
+    </a>
+
+    <a href="/logout" onclick="clearLastPage()" class="nav-item">
+        <span class="nav-text">kijelentkezés</span>
+        <i class="fa-solid fa-right-from-bracket nav-icon"></i>
+    </a>
+
+    <!--
+    <div class="friends-container">
+        <img class="friend-item" src="" alt="profilkép">
+    </div>
+    -->
+    <!--
+    <a href="/bejelentkezes" class="nav-item desktop-only">
+        <span class="nav-text">Bejelentkezés</span>
+    </a>
+    <a href="/regisztracio" class="nav-item desktop-only">
+        <span class="nav-text">Regisztráció</span>
+    </a>
+    -->
+</nav>

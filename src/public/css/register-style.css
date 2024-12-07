@@ -1,0 +1,123 @@
+* {
+  font-family: Lexend, serif;
+}
+
+body {
+  background-color: #006972;
+}
+
+.login-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.login {
+  background-color: white;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+}
+.login #error-field {
+  color: #BA1A1A;
+}
+.login h4 {
+  text-align: center;
+  padding: 0;
+  margin: 0 0 20px 0;
+  font-size: x-large;
+  color: #006972;
+  font-weight: normal;
+}
+.login input {
+  width: 80%;
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #CDE7EB;
+  margin: 0 0 20px 0;
+}
+.login a {
+  text-decoration: none;
+  color: #006972;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+.login button {
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  font-size: medium;
+  background-color: #9DF0FA;
+}
+.login button:hover {
+  background-color: #CDE7EB;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .login {
+    width: 75%;
+  }
+}
+
+.buttons {
+  width: 90%;
+}
+.buttons button {
+  width: 100%;
+}
+
+.accept {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: normal !important;
+  margin-bottom: 15px;
+}
+.accept input {
+  height: 30px;
+  margin: 0 !important;
+}
+.accept p {
+  margin: 0;
+  padding: 0;
+  width: 400%;
+}
+
+.login a {
+  margin-top: 15px;
+}
+
+.typing-text {
+  font-family: Lexend, serif;
+  font-size: 1.5rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #ffffff;
+  width: 0;
+  animation: typing 0.5s steps(11, end) forwards, blinkCursor 0.8s step-end infinite 0.5s forwards;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 137px;
+  }
+}
+@keyframes blinkCursor {
+  50% {
+    border-color: transparent;
+  }
+}
