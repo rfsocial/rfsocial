@@ -46,7 +46,7 @@ Ezek a megvalósítani kívánt funkciók természetesen bővítésre kerülhetn
 
 Az alkalmazás a kurzus keretein belül kitelepítésre került. Ehhez segítségül a DigitalOcean szolgáltatásait vettük igénybe.
 
-Az alkalmazás a kurzus keretein belüli végleges verziója kitelepítve elérhető az alábbi címen: http://161.35.211.131/
+*Az alkalmazás szerverét és adatbázisát 2025. január 30-án leállítottuk magas üzemeltetési költségek miatt, így már nem elérhető a kitelepített verzió.*
 
 ### Hozzájárulás
 
